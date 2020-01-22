@@ -18,6 +18,10 @@ class Moodli
     private const MOOD_MINIMUM = 0;
     private const MOOD_MAXIMUM = 2;
 
+    /**
+     * Handles API requests.
+     * @return null Server result
+     */
     public static function init()
     {
         return API::handle(self::API, function ($action, $parameters) {
@@ -34,7 +38,7 @@ class Moodli
                     $database->create_row($user);
                 }
                 // Handle action
-                if ($action === "prompt") {
+                if ($action === "check") {
                     // Fetch map
                     $map = self::get_map($user, $database);
                     // Get date parts
