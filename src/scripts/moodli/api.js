@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2020 Nadav Tasher
+ * https://github.com/NadavTasher/Moodli/
+ **/
+
 class Moodli {
 
     static API = "moodli";
@@ -5,8 +10,8 @@ class Moodli {
     static COLOR_DEFAULT = "#AAAAAA";
 
     static COLOR_MOOD = [
-        "#5588AA",
         "#88AA55",
+        "#AAAA33",
         "#AA8855"
     ];
 
@@ -91,6 +96,9 @@ class Moodli {
                             let column = document.createElement("div");
                             // Make it a column
                             UI.input(column);
+                            // Style it
+                            column.style.margin = "0.5vh";
+                            column.style.padding = "2vh";
                             // Color
                             let color = this.COLOR_DEFAULT;
                             // Check for mood map
@@ -100,7 +108,7 @@ class Moodli {
                                 color = this.COLOR_MOOD[yearMap[dayOfMap]];
                             }
                             // Set color
-                            column.style.backgroundColor = this.COLOR_DEFAULT;
+                            column.style.backgroundColor = color;
                             // Append to week
                             row.appendChild(column);
                         }

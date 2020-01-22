@@ -10,6 +10,10 @@
     --text: black;
 }
 
+html {
+    overflow-y: auto;
+}
+
 body {
     max-width: 460px;
 }
