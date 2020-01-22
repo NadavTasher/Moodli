@@ -61,10 +61,6 @@ class Moodli {
                 for (let day of ["S", "M", "T", "W", "T", "F", "S"]) {
                     // Create paragraph
                     let paragraph = document.createElement("p");
-                    // Style paragraph
-                    paragraph.style.width = "10vw";
-                    paragraph.style.margin = "0.5vh";
-                    paragraph.style.padding = "0";
                     // Set text
                     paragraph.innerText = day;
                     // Append to days
@@ -94,11 +90,7 @@ class Moodli {
                             // Create day element
                             let column = document.createElement("div");
                             // Make it a column
-                            UI.column(column);
-                            // Style it
-                            column.style.width = "10vw";
-                            column.style.height = "10vw";
-                            column.style.margin = "0.5vh";
+                            UI.input(column);
                             // Color
                             let color = this.COLOR_DEFAULT;
                             // Check for mood map
