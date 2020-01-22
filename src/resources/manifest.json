@@ -3,8 +3,8 @@
   "short_name": "Moodli",
   "description": "Moodli - mood map!",
   "start_url": "../index.html",
-  "background_color": "#eeeeff",
-  "theme_color": "#eeeeff",
+  "background_color": "#ccddff",
+  "theme_color": "#ccddff",
   "display": "standalone",
   "orientation": "natural",
   "icons": [
