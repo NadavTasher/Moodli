@@ -2,6 +2,14 @@ class Moodli {
 
     static API = "moodli";
 
+    static COLOR_DEFAULT = "#AAAAAA";
+
+    static COLOR_MOOD = [
+        "#5588AA",
+        "#88AA55",
+        "#AA8855"
+    ];
+
     /**
      * Checks whether to display the meter or not.
      */
@@ -53,6 +61,10 @@ class Moodli {
                 for (let day of ["S", "M", "T", "W", "T", "F", "S"]) {
                     // Create paragraph
                     let paragraph = document.createElement("p");
+                    // Style paragraph
+                    paragraph.style.width = "10vw";
+                    paragraph.style.margin = "0.5vh";
+                    paragraph.style.padding = "0";
                     // Set text
                     paragraph.innerText = day;
                     // Append to days
@@ -70,13 +82,38 @@ class Moodli {
                     let date = new Date();
                     date.setTime(0);
                     date.setFullYear(currentYear, 0, 1);
-                    let dayOfWeek = date.getDay();
+                    let offset = date.getDay();
                     // Create rows
-                    let row;
-                    // Loop through
-                    for (let day in yearMap){
-                        // Get day of week
-
+                    for (let week = 0; week < 53; week++) {
+                        // Create row
+                        let row = document.createElement("div");
+                        // Make it a row
+                        UI.row(row);
+                        // Loop through days
+                        for (let day = 0; day < 7; day++) {
+                            // Create day element
+                            let column = document.createElement("div");
+                            // Make it a column
+                            UI.column(column);
+                            // Style it
+                            column.style.width = "10vw";
+                            column.style.height = "10vw";
+                            column.style.margin = "0.5vh";
+                            // Color
+                            let color = this.COLOR_DEFAULT;
+                            // Check for mood map
+                            let dayOfYear = week * 7 + day;
+                            let dayOfMap = (dayOfYear + offset).toString();
+                            if (yearMap.hasOwnProperty(dayOfMap)) {
+                                color = this.COLOR_MOOD[yearMap[dayOfMap]];
+                            }
+                            // Set color
+                            column.style.backgroundColor = this.COLOR_DEFAULT;
+                            // Append to week
+                            row.appendChild(column);
+                        }
+                        // Append to year
+                        calendar.appendChild(row);
                     }
                 }
                 // Remove all from page

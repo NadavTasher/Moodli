@@ -11,10 +11,11 @@
 }
 
 body {
+    overflow: scroll;
     max-width: 460px;
 }
 
-img{
+img {
     max-height: 10vh;
 }
 
