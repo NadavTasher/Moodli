@@ -103,7 +103,7 @@ class Moodli {
                             let color = this.COLOR_DEFAULT;
                             // Check for mood map
                             let dayOfYear = week * 7 + day;
-                            let dayOfMap = (dayOfYear + offset).toString();
+                            let dayOfMap = (dayOfYear - offset).toString();
                             if (yearMap.hasOwnProperty(dayOfMap)) {
                                 color = this.COLOR_MOOD[yearMap[dayOfMap]];
                             }
