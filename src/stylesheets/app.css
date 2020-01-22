@@ -6,7 +6,7 @@
 :root {
     --bright: #DDDDEE;
     --dark: #9999AA;
-    --theme: #ccddff;
+    --theme: #DDDDEE;
     --text: black;
 }
 
@@ -14,3 +14,10 @@ body {
     max-width: 460px;
 }
 
+img{
+    max-height: 10vh;
+}
+
+[title] {
+    font-size: 5vh;
+}

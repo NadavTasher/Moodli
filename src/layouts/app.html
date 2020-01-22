@@ -1,9 +1,13 @@
-<div id="home" column>
+<div id="loading" column>
+    <p>Hold on - Loading app</p>
+</div>
+<div id="prompt" column>
     <p title>How are you feeling?</p>
+    <br/>
     <div row>
-        <button>😀</button>
-        <button>😕</button>
-        <button>😭</button>
+        <img onclick="Moodli.report(0);" src="resources/svg/emoji/0.svg"/>
+        <img onclick="Moodli.report(1);" src="resources/svg/emoji/1.svg"/>
+        <img onclick="Moodli.report(2);" src="resources/svg/emoji/2.svg"/>
     </div>
 </div>
 <div id="personal" column>
