@@ -45,7 +45,7 @@ class Moodli
                     $year = date("Y");
                     $day = date("z");
                     // Return result
-                    return [!isset($map->$year->$day), null];
+                    return [true, !isset($map->$year->$day)];
                 } else if ($action === "report") {
                     // Check for parameter
                     if (isset($parameters->mood)) {

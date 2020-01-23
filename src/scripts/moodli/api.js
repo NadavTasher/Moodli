@@ -4,17 +4,6 @@
  **/
 
 class Moodli {
-
-    static API = "moodli";
-
-    static COLOR_DEFAULT = "#AAAAAA";
-
-    static COLOR_MOOD = [
-        "#88AA55",
-        "#AAAA33",
-        "#AA8855"
-    ];
-
     /**
      * Checks whether to display the meter or not.
      */
@@ -22,12 +11,16 @@ class Moodli {
         // Show loading
         UI.page("loading");
         // Send request
-        API.send(this.API, "check", {}, (success, result) => {
+        API.send("moodli", "check", {}, (success, result) => {
             if (success) {
-                UI.page("prompt");
+                if (result) {
+                    UI.page("prompt");
+                } else {
+                    UI.page("personal");
+                    Moodli.statistics();
+                }
             } else {
-                UI.page("personal");
-                Moodli.statistics();
+                UI.popup(result);
             }
         }, Authenticate.authenticate());
     }
@@ -37,7 +30,7 @@ class Moodli {
      * @param mood A mood on a range of 0 (best) to 2 (worst)
      */
     static report(mood) {
-        API.send(this.API, "report", {mood: parseInt(mood)}, (success, result) => {
+        API.send("moodli", "report", {mood: parseInt(mood)}, (success, result) => {
             if (success) {
                 UI.page("personal");
                 Moodli.statistics();
@@ -52,7 +45,7 @@ class Moodli {
      */
     static statistics() {
         // Send a request
-        API.send(this.API, "statistics", {}, (success, result) => {
+        API.send("moodli", "statistics", {}, (success, result) => {
             if (success) {
                 // Create calendar
                 let calendar = document.createElement("div");
@@ -100,12 +93,16 @@ class Moodli {
                             column.style.margin = "0.5vh";
                             column.style.padding = "2vh";
                             // Color
-                            let color = this.COLOR_DEFAULT;
+                            let color = "#AAAAAA";
                             // Check for mood map
                             let dayOfYear = week * 7 + day;
                             let dayOfMap = (dayOfYear - offset).toString();
                             if (yearMap.hasOwnProperty(dayOfMap)) {
-                                color = this.COLOR_MOOD[yearMap[dayOfMap]];
+                                color = [
+                                    "#88AA55",
+                                    "#AAAA33",
+                                    "#AA8855"
+                                ][yearMap[dayOfMap]];
                             }
                             // Set color
                             column.style.backgroundColor = color;
