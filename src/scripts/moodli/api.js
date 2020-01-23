@@ -31,12 +31,8 @@ class Moodli {
      */
     static report(mood) {
         API.send("moodli", "report", {mood: parseInt(mood)}, (success, result) => {
-            if (success) {
-                UI.page("personal");
-                Moodli.statistics();
-            } else {
-                UI.popup(result);
-            }
+            UI.page("personal");
+            Moodli.statistics();
         }, Authenticate.authenticate());
     }
 
