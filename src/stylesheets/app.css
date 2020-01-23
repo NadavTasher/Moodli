@@ -24,6 +24,18 @@ img {
     max-height: 10vh;
 }
 
+/* Attribute styling */
+
+[day = ""], [day = true] {
+    /* Alignment */
+    margin: 0.75vh !important;
+    padding: 0.50vh !important;
+    /* Height */
+    height: 4vh;
+    max-height: 4vh;
+    min-height: 4vh;
+}
+
 /* Specific styling */
 
 #statistics {

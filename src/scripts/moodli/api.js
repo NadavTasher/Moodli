@@ -71,9 +71,7 @@ class Moodli {
                             // Make it a column
                             UI.input(column);
                             // Style it
-                            column.style.fontSize = "2.5vh";
-                            column.style.margin = "0.75vh";
-                            column.style.height = "4vh";
+                            column.setAttribute("day", "true");
                             // Color
                             let color = "#AAAAAA";
                             // Check for mood map
@@ -89,7 +87,7 @@ class Moodli {
                                 // Set text
                                 let date = new Date();
                                 date.setFullYear(currentYear, 0, dayOfMap + 1);
-                                column.innerText = date.getDate();
+                                column.innerText = date.getDate().toString();
                             }
                             // Set color
                             column.style.backgroundColor = color;
@@ -136,8 +134,60 @@ class Moodli {
         window.location.reload();
     }
 
+    /**
+     * Fetches statistics and compiles a CSV file.
+     * @param separator Line separator
+     */
     static export(separator = "\n") {
-        let rows = "Date, Mood" + separator;
-
+        // Send a request
+        API.send("moodli", "statistics", {}, (success, result) => {
+            if (success) {
+                // Loop through current year on map
+                let currentYear = new Date().getFullYear();
+                // Check if we have the current year in out map
+                if (result.hasOwnProperty(currentYear.toString())) {
+                    // Fetch year
+                    let yearMap = result[currentYear.toString()];
+                    // Create rows
+                    let csv = "Date, Mood" + separator;
+                    // Loop over days
+                    for (let day in yearMap) {
+                        // Make sure the day actually exists
+                        if (yearMap.hasOwnProperty(day)) {
+                            // Parse the day-of-year
+                            let dayOfYear = parseInt(day);
+                            // Create date string
+                            let date = new Date();
+                            // Set day of year
+                            date.setFullYear(currentYear, 0, dayOfYear + 1);
+                            // Setup mood text
+                            let mood = "";
+                            switch (yearMap[day]) {
+                                case 0: {
+                                    mood = "Happy";
+                                    break;
+                                }
+                                case 1: {
+                                    mood = "Neutral";
+                                    break;
+                                }
+                                case 2: {
+                                    mood = "Sad";
+                                    break;
+                                }
+                            }
+                            csv += (date.getDate()) + "/" + (date.getMonth() + 1) + ", " + mood + separator;
+                        }
+                    }
+                    // Download as csv
+                    let link = document.createElement("a");
+                    link.download = "Moodli.csv";
+                    link.href = "data:" + "text/plain" + ";" + "base64" + "," + btoa(csv);
+                    link.click();
+                }
+            } else {
+                UI.popup(result);
+            }
+        }, Authenticate.authenticate());
     }
 }
