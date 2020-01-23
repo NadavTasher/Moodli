@@ -26,18 +26,31 @@ img {
 
 /* Specific styling */
 
-#content {
-    /* Allow scrolling */
-    overflow-y: scroll;
+#statistics {
     /* Height */
-    max-height: 80vh;
-    min-height: 80vh;
+    height: 100vh;
     /* Alignment */
     justify-content: start;
 }
 
-#average{
+#content {
+    /* Allow scrolling */
+    overflow-y: scroll;
+    /* Height */
+    max-height: 82vh;
+    min-height: 82vh;
+    /* Alignment */
+    justify-content: start;
+}
+
+#average {
     /* Height */
     max-height: 6vh;
     min-height: 6vh;
+}
+
+#ui, #header {
+    /* Height */
+    max-height: 9vh;
+    min-height: 9vh;
 }

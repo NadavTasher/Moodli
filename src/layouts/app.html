@@ -10,8 +10,8 @@
         <img onclick="Moodli.report(2);" src="resources/svg/emoji/2.svg"/>
     </div>
 </div>
-<div id="personal" column>
-    <div row>
+<div id="statistics" column>
+    <div id="header" row>
         <p>S</p>
         <p>M</p>
         <p>T</p>
@@ -23,9 +23,9 @@
     <div id="content" column>
         <p footer>Hold on - Loading data</p>
     </div>
-    <div row>
-        <button>Quit</button>
+    <div id="ui" row>
+        <button onclick="Moodli.sign_out();">Quit</button>
         <img id="average" src="resources/svg/icons/symbols/offline.svg"/>
-        <button>Export</button>
+        <button onclick="Moodli.export();">Export</button>
     </div>
 </div>

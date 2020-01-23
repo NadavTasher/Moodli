@@ -16,7 +16,7 @@ class Moodli {
                 if (result) {
                     UI.page("prompt");
                 } else {
-                    UI.page("personal");
+                    UI.page("statistics");
                     Moodli.statistics();
                 }
             } else {
@@ -31,7 +31,7 @@ class Moodli {
      */
     static report(mood) {
         API.send("moodli", "report", {mood: parseInt(mood)}, (success, result) => {
-            UI.page("personal");
+            UI.page("statistics");
             Moodli.statistics();
         }, Authenticate.authenticate());
     }
@@ -67,23 +67,29 @@ class Moodli {
                         // Loop through days
                         for (let day = 0; day < 7; day++) {
                             // Create day element
-                            let column = document.createElement("div");
+                            let column = document.createElement("p");
                             // Make it a column
                             UI.input(column);
                             // Style it
+                            column.style.fontSize = "2.5vh";
                             column.style.margin = "0.75vh";
-                            column.style.padding = "2vh";
+                            column.style.height = "4vh";
                             // Color
                             let color = "#AAAAAA";
                             // Check for mood map
                             let dayOfYear = week * 7 + day;
-                            let dayOfMap = (dayOfYear - offset).toString();
+                            let dayOfMap = dayOfYear - offset;
                             if (yearMap.hasOwnProperty(dayOfMap)) {
+                                // Customize color
                                 color = [
                                     "#88AA55",
                                     "#AAAA33",
                                     "#AA8855"
                                 ][yearMap[dayOfMap]];
+                                // Set text
+                                let date = new Date();
+                                date.setFullYear(currentYear, 0, dayOfMap + 1);
+                                column.innerText = date.getDate();
                             }
                             // Set color
                             column.style.backgroundColor = color;
@@ -118,5 +124,20 @@ class Moodli {
                 UI.popup(result);
             }
         }, Authenticate.authenticate());
+    }
+
+    /**
+     * Signs out and reloads.
+     */
+    static sign_out() {
+        // Sign out
+        Authenticate.sign_out();
+        // Reload page
+        window.location.reload();
+    }
+
+    static export(separator = "\n") {
+        let rows = "Date, Mood" + separator;
+
     }
 }
