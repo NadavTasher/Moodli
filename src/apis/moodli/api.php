@@ -61,7 +61,7 @@ class Moodli
                                 $year = date("Y");
                                 $day = date("z");
                                 // Make sure the day hasn't been reported yet
-                                if (!isset($map->$year) || !isset($map->$year->$day)) {
+                                if (!isset($map->$year->$day)) {
                                     if (!isset($map->$year))
                                         $map->$year = new stdClass();
                                     $map->$year->$day = $mood;
