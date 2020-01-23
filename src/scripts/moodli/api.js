@@ -47,21 +47,6 @@ class Moodli {
                 let calendar = document.createElement("div");
                 // Make calendar a column
                 UI.column(calendar);
-                // Create day headings
-                let days = document.createElement("div");
-                // Make it a row
-                UI.row(days);
-                // Add day strings
-                for (let day of ["S", "M", "T", "W", "T", "F", "S"]) {
-                    // Create paragraph
-                    let paragraph = document.createElement("p");
-                    // Set text
-                    paragraph.innerText = day;
-                    // Append to days
-                    days.appendChild(paragraph);
-                }
-                // Append heading
-                calendar.appendChild(days);
                 // Loop through current year on map
                 let currentYear = new Date().getFullYear();
                 // Check if we have the current year in out map
@@ -86,7 +71,7 @@ class Moodli {
                             // Make it a column
                             UI.input(column);
                             // Style it
-                            column.style.margin = "0.5vh";
+                            column.style.margin = "0.75vh";
                             column.style.padding = "2vh";
                             // Color
                             let color = "#AAAAAA";
@@ -108,11 +93,27 @@ class Moodli {
                         // Append to year
                         calendar.appendChild(row);
                     }
+                    // Calculate average
+                    let summary = 0;
+                    let count = 0;
+                    // Loop through entries
+                    for (let day in yearMap) {
+                        // Sum yearMap
+                        if (yearMap.hasOwnProperty(day)) {
+                            summary += parseInt(yearMap[day]);
+                            count += 1;
+                        }
+                    }
+                    // Divide
+                    if (count > 0) {
+                        // Display
+                        UI.get("average").src = "resources/svg/emoji/" + Math.round(summary / count) + ".svg";
+                    }
                 }
                 // Remove all from page
-                UI.clear("personal");
+                UI.clear("content");
                 // Add calendar to page
-                UI.get("personal").appendChild(calendar);
+                UI.get("content").appendChild(calendar);
             } else {
                 UI.popup(result);
             }

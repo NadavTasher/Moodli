@@ -10,6 +10,8 @@
     --text: black;
 }
 
+/* General styling */
+
 html {
     overflow-y: auto;
 }
@@ -20,4 +22,22 @@ body {
 
 img {
     max-height: 10vh;
+}
+
+/* Specific styling */
+
+#content {
+    /* Allow scrolling */
+    overflow-y: scroll;
+    /* Height */
+    max-height: 80vh;
+    min-height: 80vh;
+    /* Alignment */
+    justify-content: start;
+}
+
+#average{
+    /* Height */
+    max-height: 6vh;
+    min-height: 6vh;
 }
